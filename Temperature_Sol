@@ -1,1 +1,16 @@
 Travail sur les données de température du sol à l'horizon racinaire
+
+# définition du répertoire de travail 
+setwd("C:/Users/portable/Desktop/Statistiques/Donnees_HOBO/_Stats_R_T°_sol")
+# Forme courte des noms de  fichiers 
+snames<-list.files(path=".", pattern = ".csv", recursive = T, include.dirs = F, full.names = F)
+snames #donne la liste des fichiers présents dans le répertoire de travail 
+# Chemin d'accès aux fichiers#
+lnames<-list.files(path = ".", pattern = ".csv", recursive = T,full.names = T)
+lnames # donne le chemin d'accès aux fichiers 
+library(stringr) #le package doit être installé au préalable 
+# demander quelles sont les chaînes de caratères concernant le site de Crouzet 1 (CRO-001 et CRO-001bis)
+sel.cro1<-str_which(lnames,"CRO-001") # et là j'appele ensemble CRO-001 et CRO-001bis (parfois 2 capteurs sur le même site pour éviter lacunes si un capteur arrive en bout de pile)
+# Placer dans un objet "names.cro1" les noms courts qui concernent le site de Crouzet 1 #
+names.cro1<-snames[sel.cro1]
+names.cro1 # donne les noms des fichiers contenant "CRO-001"
