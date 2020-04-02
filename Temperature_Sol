@@ -14,3 +14,41 @@ sel.cro1<-str_which(lnames,"CRO-001") # et là j'appele ensemble CRO-001 et CRO-
 # Placer dans un objet "names.cro1" les noms courts qui concernent le site de Crouzet 1 #
 names.cro1<-snames[sel.cro1]
 names.cro1 # donne les noms des fichiers contenant "CRO-001"
+
+
+#### TEST POUR : IMPORTATION, VERIFICATION DES DONNEES, VISUALISATION DEBUT ET FIN, POUR PREPARER LA CONCATENATION DES 
+#### FICHIERS CONCERNANT LE SITE CRO-001 
+
+# importer un par un les fichiers de données contenant CRO-001 : code pour le premier
+cro1_1<-read.csv("FR-ECR-CRO-001_H_T_10280463_20140729-20141008.csv", skip=1, header=FALSE) # j'enlève la ligne 1 (noms des colonnes non formatés) 
+names(cro1_1) <-c("date", "temperature", "validation") # donner un nom aux colonnes
+summary(cro1_1) # voir le résumé de cro1_1
+length(cro1_1) # donner le nombre de colonnes 
+cro1_1 # voir cro_1_1 
+cro1_1_a<-a[,1:2] # selectionner colonnes 1 et 2 (enlever la 3)
+summary(cro1_1_a)
+length(cro1_1_a)
+typeof(cro1_1_a)
+typeof(cro1_1_a[,1]) # vérifier que le type de données de la colonne "date" est bien numérique (date)
+class(cro1_1_a[,1])
+class(Ccro1_1_a[,2])
+cro1_1_a$"date"<-(as.POSIXct(cro1_1_a[,1],tz="")) # conversion du type de données de la colonne "date" de facteur à date (format POIXct)
+typeof(cro1_1_a[,1]) # le type de données est devenue numérique mais réel (pas entier)
+class(cro1_1_a[,1]) # cette fois-ci la classe est "double" donc nombres réels 
+
+## --> visualiser l'intervalle de dates pour chaque fichier. 
+library(lubridate)
+start_cro1_1_a<-cro1_1_a[1,1]
+start_cro1_1_a
+end_cro1_1_a<-cro1_1_a[1701,1]
+end_cro1_1_a
+itv_cro1_1<-interval(start_cro1_1_a,end_cro1_1_a) # donner les dates de début et de fin du fichier
+itv_cro1_1 # les fichiers seront nommés de 1 à n pour les n fichiers concernés du même site 
+
+############# A SUIVRE : 
+## vérification, transformation des types de données et création d'un objet "itv_CRO1_i" pour tous les fichiers concernant 
+## le site CRO-001 
+
+## Vérification que les fichiers ne se chevauchent pas 
+
+## si les fichiers se chevauchent entre n et n+1, enlèvement des données du fichier n+1 qui font doublon
